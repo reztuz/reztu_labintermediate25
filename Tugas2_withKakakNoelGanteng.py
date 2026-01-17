@@ -1,39 +1,38 @@
-import random
+#ini variabel nya 
 
-word = random.choice(["python", "game", "code"])
-guessed = []
+word = "python"
 display = ["_"] * len(word)
+used = []
 attempts = 6
 
-print("HANGMAN 2.0")
-print(" ".join(display))
-
+#abisfu ini logika gamenya
 while attempts > 0 and "_" in display:
-    letter = input("Guess a letter: ").lower()
+    print("Word:", " ".join(display))
+    print("Attempts:", attempts)
 
-    # error check
-    if len(letter) != 1 or not letter.isalpha():
+    guess = input("Guess a letter: ").lower()
+
+    if len(guess) != 1 or not guess.isalpha():
         print("Invalid input")
         continue
 
-    # repeated guess
-    if letter in guessed:
+    if guess in used:
         print("Already guessed")
         continue
 
-    guessed.append(letter)
+    used.append(guess)
 
-    if letter in word:
-        for i in range(len(word)):
-            if word[i] == letter:
-                display[i] = letter
+    if guess in word:
+        i = 0
+        while i < len(word):
+            if word[i] == guess:
+                display[i] = guess
+            i += 1
     else:
         attempts -= 1
-
-    print(" ".join(display))
-    print("Attempts left:", attempts)
-
+# ini akhirnya buat hasilnya
 if "_" not in display:
     print("You win! Word:", word)
 else:
     print("You lose! Word:", word)
+#selese ye
